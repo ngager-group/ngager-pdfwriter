@@ -8,7 +8,7 @@ import { ptToPixel, pixelToPt, isHTML } from './utils';
 import { getPdfDocument } from './pdfDocument';
 
 class Pdf {
-  constructor(font = 'Play', fontType = 'normal') {
+  constructor(font = 'MyFont', fontType = 'normal') {
     this.doc = getPdfDocument('p', 'pt', 'a4');
     // this.doc = new PdfConverter('p', 'pt', 'a4');
     this.y = 50;
