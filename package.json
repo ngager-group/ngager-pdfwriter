@@ -1,0 +1,66 @@
+{
+  "name": "ngager-pdfwriter",
+  "version": "1.0.2",
+  "description": "ReactJS PDF Writer component",
+  "author": "ngager-group",
+  "license": "MIT",
+  "repository": "ngager-group/ngager-pdfwriter",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "test": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test --env=jsdom",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "npm run build",
+    "predeploy": "cd example && npm install && npm run build",
+    "deploy": "gh-pages -d example/build"
+  },
+  "dependencies": {
+    "jspdf": "^1.5.3"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.11",
+    "prop-types": "^15.5.4",
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
+  },
+  "devDependencies": {
+    "@svgr/rollup": "^2.4.1",
+    "babel-eslint": "^8.2.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-external-helpers": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-react": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-stage-0": "^7.0.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.7.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "gh-pages": "^2.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "^3.2.0",
+    "rollup": "^1.27.5",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "@rollup/plugin-url": "^4.0.0"
+  },
+  "files": [
+    "dist"
+  ]
+}
