@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/ngager-datepicker/static/css/main.a2b7b0b6.chunk.css",
+    "main.js": "/ngager-datepicker/static/js/main.66424be3.chunk.js",
+    "main.js.map": "/ngager-datepicker/static/js/main.66424be3.chunk.js.map",
+    "runtime-main.js": "/ngager-datepicker/static/js/runtime-main.8359a3d8.js",
+    "runtime-main.js.map": "/ngager-datepicker/static/js/runtime-main.8359a3d8.js.map",
+    "static/js/2.0a2d3816.chunk.js": "/ngager-datepicker/static/js/2.0a2d3816.chunk.js",
+    "static/js/2.0a2d3816.chunk.js.map": "/ngager-datepicker/static/js/2.0a2d3816.chunk.js.map",
+    "index.html": "/ngager-datepicker/index.html",
+    "precache-manifest.cbc6f7f3558a2ce74607c28369603b19.js": "/ngager-datepicker/precache-manifest.cbc6f7f3558a2ce74607c28369603b19.js",
+    "service-worker.js": "/ngager-datepicker/service-worker.js",
+    "static/css/main.a2b7b0b6.chunk.css.map": "/ngager-datepicker/static/css/main.a2b7b0b6.chunk.css.map",
+    "static/js/2.0a2d3816.chunk.js.LICENSE.txt": "/ngager-datepicker/static/js/2.0a2d3816.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8359a3d8.js",
+    "static/js/2.0a2d3816.chunk.js",
+    "static/css/main.a2b7b0b6.chunk.css",
+    "static/js/main.66424be3.chunk.js"
+  ]
+}
