@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/ngager-datepicker/static/css/main.a2b7b0b6.chunk.css",
-    "main.js": "/ngager-datepicker/static/js/main.66424be3.chunk.js",
-    "main.js.map": "/ngager-datepicker/static/js/main.66424be3.chunk.js.map",
-    "runtime-main.js": "/ngager-datepicker/static/js/runtime-main.8359a3d8.js",
-    "runtime-main.js.map": "/ngager-datepicker/static/js/runtime-main.8359a3d8.js.map",
-    "static/js/2.0a2d3816.chunk.js": "/ngager-datepicker/static/js/2.0a2d3816.chunk.js",
-    "static/js/2.0a2d3816.chunk.js.map": "/ngager-datepicker/static/js/2.0a2d3816.chunk.js.map",
-    "index.html": "/ngager-datepicker/index.html",
-    "precache-manifest.cbc6f7f3558a2ce74607c28369603b19.js": "/ngager-datepicker/precache-manifest.cbc6f7f3558a2ce74607c28369603b19.js",
-    "service-worker.js": "/ngager-datepicker/service-worker.js",
-    "static/css/main.a2b7b0b6.chunk.css.map": "/ngager-datepicker/static/css/main.a2b7b0b6.chunk.css.map",
-    "static/js/2.0a2d3816.chunk.js.LICENSE.txt": "/ngager-datepicker/static/js/2.0a2d3816.chunk.js.LICENSE.txt"
+    "main.css": "/ngager-pdfwriter/static/css/main.a2b7b0b6.chunk.css",
+    "main.js": "/ngager-pdfwriter/static/js/main.6cff5724.chunk.js",
+    "main.js.map": "/ngager-pdfwriter/static/js/main.6cff5724.chunk.js.map",
+    "runtime-main.js": "/ngager-pdfwriter/static/js/runtime-main.7a9cf642.js",
+    "runtime-main.js.map": "/ngager-pdfwriter/static/js/runtime-main.7a9cf642.js.map",
+    "static/js/2.9d756dfc.chunk.js": "/ngager-pdfwriter/static/js/2.9d756dfc.chunk.js",
+    "static/js/2.9d756dfc.chunk.js.map": "/ngager-pdfwriter/static/js/2.9d756dfc.chunk.js.map",
+    "index.html": "/ngager-pdfwriter/index.html",
+    "precache-manifest.241601576f3442a2115953e4037a64f6.js": "/ngager-pdfwriter/precache-manifest.241601576f3442a2115953e4037a64f6.js",
+    "service-worker.js": "/ngager-pdfwriter/service-worker.js",
+    "static/css/main.a2b7b0b6.chunk.css.map": "/ngager-pdfwriter/static/css/main.a2b7b0b6.chunk.css.map",
+    "static/js/2.9d756dfc.chunk.js.LICENSE.txt": "/ngager-pdfwriter/static/js/2.9d756dfc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8359a3d8.js",
-    "static/js/2.0a2d3816.chunk.js",
+    "static/js/runtime-main.7a9cf642.js",
+    "static/js/2.9d756dfc.chunk.js",
     "static/css/main.a2b7b0b6.chunk.css",
-    "static/js/main.66424be3.chunk.js"
+    "static/js/main.6cff5724.chunk.js"
   ]
 }
