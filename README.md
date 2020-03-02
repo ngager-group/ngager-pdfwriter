@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save libary-name
+npm install --save ngager-pdfwriter
 ```
 
 ## Usage
