@@ -1,8 +1,8 @@
-# libary-name
+# ngager-pdfwriter
 
-> Libary-description
+> Very simple ReactJS PDF Writer library using PDFKit
 
-[![NPM](https://img.shields.io/npm/v/libary-name.svg)](https://www.npmjs.com/package/libary-name) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/ngager-pdfwriter.svg)](https://www.npmjs.com/package/ngager-pdfwriter) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
@@ -46,6 +46,8 @@ class Example extends Component {
   }
 }
 ```
+## Example
+https://ngager-group.github.io/ngager-pdfwriter/
 
 ## License
 
