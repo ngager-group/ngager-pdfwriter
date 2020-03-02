@@ -1,6 +1,6 @@
 {
   "name": "ngager-pdfwriter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ReactJS PDF Writer component",
   "author": "ngager-group",
   "license": "MIT",
@@ -21,9 +21,6 @@
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
   },
-  "dependencies": {
-    "jspdf": "^1.5.3"
-  },
   "peerDependencies": {
     "lodash": "^4.17.11",
     "prop-types": "^15.5.4",
@@ -32,6 +29,7 @@
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
+    "babel-eslint": "^8.2.5",
     "@babel/core": "^7.5.5",
     "@babel/plugin-external-helpers": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",

@@ -17,22 +17,29 @@ import React, { Component } from 'react'
 
 import PDF from 'ngager-pdfwriter'
 
+const domtoimage = require('dom-to-image');
+
 class Example extends Component {
-  onClick() {
+  async onClick() {
+    console.log('onClick', this.props);
     const pdf = new Pdf();
-    // pdf.setDefaultColor('#6c81af');
-    pdf.addText('Nguyễn Chí Long', { align: 'center' });
-    pdf.breakLine(20);
-    pdf.addText('Nguyễn Chí Long', {
-      align: 'center',
-      fontWeight: 'bold',
-    });
-    pdf.breakLine(20);
+    pdf.setFilename('test.pdf');
+    try {
+      pdf.addText(text);
+      pdf.addText(' ');
+      const dataUrl = await domtoimage.toPng(this.chart);
+      pdf.addImage(dataUrl);
+    } catch (e) {
+      console.log('ERROR', e);
+    }
     pdf.save();
   }
   render () {
     return (
       <div>
+        <div ref={el => {this.chart = el || this.chart; }} >
+          {...chart}
+        </div>
         <button onClick={() => this.onClick()}>Download PDF</button>
       </div>
     )
