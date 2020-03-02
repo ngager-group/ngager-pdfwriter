@@ -15,7 +15,7 @@ npm install --save ngager-pdfwriter
 ```jsx
 import React, { Component } from 'react'
 
-import PDF from 'ngager-pdfwriter'
+import Pdf from 'ngager-pdfwriter'
 
 const domtoimage = require('dom-to-image');
 
