@@ -25,6 +25,27 @@ class Pdf {
     this.path = path;
   }
 
+  moveUp(value = 1) {
+    this.data.push({
+      type: 'move',
+      item: { direction: 'up', value }
+    });
+  }
+
+  moveDown(value = 1) {
+    this.data.push({
+      type: 'move',
+      item: { direction: 'down', value }
+    });
+  }
+
+  addIcon(icon, style = null, options = null) {
+    this.data.push({
+      type: 'icon',
+      item: { icon, style, options }
+    });
+  }
+
   addImage(image, options = {}) {
     this.data.push({
       type: 'image',
@@ -32,13 +53,13 @@ class Pdf {
     });
   }
 
-  addText(text, options = {}) {
+  addText(text, style = null, options = null) {
     const newContent = _replace(text, '<br/>', '<br>');
     _split(newContent, '<br>').forEach(str => {
       if (str.length === 0) {
         this.data.push({
           type: 'text',
-          item: { text: ' ', options }
+          item: { text: ' ', style, options }
         });
         return;
       }
@@ -46,7 +67,13 @@ class Pdf {
       if (str.includes('<b>')) {
         // console.log(str);
         const array = [];
+        let maxCount = 0;
         for (let i = 0; i < str.length; i++) {
+          // console.log('maxCount', maxCount);
+          if (maxCount > 30) {
+            break;
+          }
+          maxCount += 1;
           const open = str.indexOf('<b>', i);
           if (open >= 0) {
             const normalText = str.substr(i, open - i);
@@ -80,25 +107,26 @@ class Pdf {
         }
         this.data.push({
           type: 'formatted-text',
-          item: { text: array, options }
+          item: { text: array, style, options }
         });
       } else {
         this.data.push({
           type: 'text',
-          item: { text: str, options }
+          item: { text: str, style, options }
         });
       }
     });
   }
 
   handleOnReceivedMessage(event) {
-    console.log(event);
+    // console.log(event);
     if (event.data && event.data.type) {
       if (event.data.type === 'ready') {
         const data = {
           data: this.data,
           fileName: this.fileName
         };
+        // console.log('data', data);
         this.iframe.contentWindow.postMessage(data, '*');
       } else if (event.data.type === 'finish') {
         // console.log(event.data.data);

@@ -54,13 +54,20 @@ const layout = {
 
 const text = '3. <b>Consultation Services</b>: The Recruitment team provides <b>consultation on </b>new and replacement positions - hiring  –  process, salary<b> range, </b> hehehe<br><br>   <b>availability, possible</b> challenges/risks and strategies <br>to close the roles.<br>Hahaha';
 
+const text2 = 'The man who knows his worth respects his fellow man because he respects himself first. He does not boast; is not self-seeking; nor does he force his personal opinion on others.';
+
 export default class App extends Component {
   async onClick() {
-    console.log('onClick', this.props);
+    // console.log('onClick', this.props);
     const pdf = new Pdf();
     pdf.setFilename('test.pdf');
+    pdf.setHost('http://localhost')
     try {
-      pdf.addText(text);
+      pdf.addText(text, { fontSize: 12, color: '#BBBBBB' });
+      pdf.addText(' ');
+      pdf.addIcon('', { color: '#BBBBBB' });
+      pdf.moveUp();
+      pdf.addText(text2, null, { indent: 16 });
       pdf.addText(' ');
       const canvas = await html2canvas(this.chart);
       const dataUrl = canvas.toDataURL();
@@ -75,7 +82,11 @@ export default class App extends Component {
   render () {
     return (
       <div style={{ display: 'flex', margin: 'auto', flexDirection: 'column', maxWidth: 700 }}>
-        <p dangerouslySetInnerHTML={{ __html: text }} />
+        <p style={{ color: '#BBBBBB' }} dangerouslySetInnerHTML={{ __html: text }} />
+        <p>
+          <i style={{ paddingRight: 6, color: '#BBBBBB' }} className='fas fa-quote-left'></i>
+           {text2}
+        </p>
         <div
           ref={el => {
               this.chart = el || this.chart;
