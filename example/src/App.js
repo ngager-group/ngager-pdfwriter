@@ -60,7 +60,6 @@ export default class App extends Component {
   async onClick() {
     // console.log('onClick', this.props);
     const pdf = new Pdf();
-    pdf.setFilename('test.pdf');
     // pdf.setHost('http://localhost')
     try {
       pdf.addText(text, { fontSize: 12, color: '#BBBBBB' });
@@ -76,7 +75,9 @@ export default class App extends Component {
     } catch (e) {
       console.log('ERROR', e);
     }
-    pdf.save();
+    // const blob = await pdf.output();
+    // console.log('blob', blob);
+    await pdf.save('test.pdf');
   }
 
   render () {

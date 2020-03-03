@@ -8,15 +8,11 @@ import _replace from 'lodash/replace';
 import _split from 'lodash/split';
 
 class Pdf {
-  constructor() {
-    this.fileName = 'untitled.pdf';
+  constructor(options = null) {
     this.host = 'https://nclong87.github.io';
     this.path = '/pdfwriter';
     this.data = [];
-    this.handleOnReceivedMessage = this.handleOnReceivedMessage.bind(this);
-  }
-  setFilename(fileName) {
-    this.fileName = fileName;
+    this.options = options;
   }
   setHost(host) {
     this.host = host;
@@ -118,33 +114,7 @@ class Pdf {
     });
   }
 
-  handleOnReceivedMessage(event) {
-    // console.log(event);
-    if (event.data && event.data.type) {
-      if (event.data.type === 'ready') {
-        const data = {
-          data: this.data,
-          fileName: this.fileName
-        };
-        // console.log('data', data);
-        this.iframe.contentWindow.postMessage(data, '*');
-      } else if (event.data.type === 'finish') {
-        // console.log(event.data.data);
-        document.body.removeChild(this.iframe);
-        window.removeEventListener('message', this.handleOnReceivedMessage, false);
-        const url = window.URL.createObjectURL(event.data.data);
-        var a = document.createElement('a');
-        document.body.appendChild(a);
-        a.style = 'display: none';
-        a.href = url;
-        a.download = this.fileName || 'untitled.pdf';
-        a.click();
-        window.URL.revokeObjectURL(url);
-      }
-    }
-  }
-
-  save() {
+  output() {
     const { host, path } = this;
     this.iframe = document.createElement('iframe');
     this.iframe.style = 'border:0 ;position: fixed;left: 0;top: 0;z-index: 9999;cursor: wait;background-color: #fff;opacity: 0.5;';
@@ -152,7 +122,44 @@ class Pdf {
     this.iframe.height = '100%';
     this.iframe.src = `${host}${path}`;
     document.body.appendChild(this.iframe);
-    window.addEventListener('message', this.handleOnReceivedMessage);
+    const self = this;
+    const promise = new Promise(resolve => {
+      function handleOnReceivedMessage(event) {
+        if (event.data && event.data.type) {
+          if (event.data.type === 'ready') {
+            const data = {
+              data: self.data,
+              options: self.options
+            };
+            // console.log('data', data);
+            self.iframe.contentWindow.postMessage(data, '*');
+          } else if (event.data.type === 'finish') {
+            // console.log(event.data.data);
+            resolve(event.data.data);
+            document.body.removeChild(self.iframe);
+            window.removeEventListener('message', handleOnReceivedMessage, false);
+          }
+        }
+      }
+      window.addEventListener('message', handleOnReceivedMessage);
+    });
+    return promise
+      .catch(error => {
+        console.log('ERROR', error);
+        return null;
+      });
+  }
+
+  async save(fileName = null) {
+    const blob = await this.output();
+    const url = window.URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    a.href = url;
+    a.download = fileName || 'untitled.pdf';
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }
 

@@ -17,22 +17,29 @@ import React, { Component } from 'react'
 
 import Pdf from 'ngager-pdfwriter'
 
-const domtoimage = require('dom-to-image');
+const html2canvas = require('html2canvas');
 
 class Example extends Component {
   async onClick() {
-    console.log('onClick', this.props);
+    // console.log('onClick', this.props);
     const pdf = new Pdf();
-    pdf.setFilename('test.pdf');
     try {
-      pdf.addText(text);
+      pdf.addText(text, { fontSize: 12, color: '#BBBBBB' });
       pdf.addText(' ');
-      const dataUrl = await domtoimage.toPng(this.chart);
+      // Add fontawesome icon
+      pdf.addIcon('', { color: '#BBBBBB' });
+      pdf.moveUp();
+      pdf.addText(text2, null, { indent: 16 });
+      pdf.addText(' ');
+      const canvas = await html2canvas(this.chart);
+      const dataUrl = canvas.toDataURL();
       pdf.addImage(dataUrl);
     } catch (e) {
       console.log('ERROR', e);
     }
-    pdf.save();
+    // const blob = await pdf.output();
+    // console.log('blob', blob);
+    await pdf.save('test.pdf');
   }
   render () {
     return (
