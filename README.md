@@ -34,6 +34,9 @@ class Example extends Component {
       const canvas = await html2canvas(this.chart);
       const dataUrl = canvas.toDataURL();
       pdf.addImage(dataUrl);
+
+      // Add new page
+      pdf.addPage();
     } catch (e) {
       console.log('ERROR', e);
     }

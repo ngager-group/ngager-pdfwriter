@@ -21,6 +21,13 @@ class Pdf {
     this.path = path;
   }
 
+  addPage(options) {
+    this.data.push({
+      type: 'addPage',
+      item: { options }
+    });
+  }
+
   moveUp(value = 1) {
     this.data.push({
       type: 'move',
