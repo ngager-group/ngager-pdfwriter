@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "440e2f1757c69431010f97401919e6ac",
+    "revision": "fdd77aa6dde8526313080785f98077c2",
     "url": "/ngager-pdfwriter/index.html"
   },
   {
-    "revision": "55677c486bea15ca51cb",
+    "revision": "de99081b08af76b71d3e",
     "url": "/ngager-pdfwriter/static/css/main.a2b7b0b6.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ngager-pdfwriter/static/js/2.4c376939.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "55677c486bea15ca51cb",
-    "url": "/ngager-pdfwriter/static/js/main.1ff286fb.chunk.js"
+    "revision": "de99081b08af76b71d3e",
+    "url": "/ngager-pdfwriter/static/js/main.c2a99b40.chunk.js"
   },
   {
     "revision": "d8fcbb3aaa426b6b9bb1",
