@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/ngager-pdfwriter/static/css/main.a2b7b0b6.chunk.css",
-    "main.js": "/ngager-pdfwriter/static/js/main.1be16d3d.chunk.js",
-    "main.js.map": "/ngager-pdfwriter/static/js/main.1be16d3d.chunk.js.map",
+    "main.js": "/ngager-pdfwriter/static/js/main.1ff286fb.chunk.js",
+    "main.js.map": "/ngager-pdfwriter/static/js/main.1ff286fb.chunk.js.map",
     "runtime-main.js": "/ngager-pdfwriter/static/js/runtime-main.7a9cf642.js",
     "runtime-main.js.map": "/ngager-pdfwriter/static/js/runtime-main.7a9cf642.js.map",
-    "static/js/2.bac0cd2b.chunk.js": "/ngager-pdfwriter/static/js/2.bac0cd2b.chunk.js",
-    "static/js/2.bac0cd2b.chunk.js.map": "/ngager-pdfwriter/static/js/2.bac0cd2b.chunk.js.map",
+    "static/js/2.4c376939.chunk.js": "/ngager-pdfwriter/static/js/2.4c376939.chunk.js",
+    "static/js/2.4c376939.chunk.js.map": "/ngager-pdfwriter/static/js/2.4c376939.chunk.js.map",
     "index.html": "/ngager-pdfwriter/index.html",
-    "precache-manifest.8b9e04feac5983d6a8ced7d2a7e75bd1.js": "/ngager-pdfwriter/precache-manifest.8b9e04feac5983d6a8ced7d2a7e75bd1.js",
+    "precache-manifest.4604c9825a7c512d8c7bf55d4c08636e.js": "/ngager-pdfwriter/precache-manifest.4604c9825a7c512d8c7bf55d4c08636e.js",
     "service-worker.js": "/ngager-pdfwriter/service-worker.js",
     "static/css/main.a2b7b0b6.chunk.css.map": "/ngager-pdfwriter/static/css/main.a2b7b0b6.chunk.css.map",
-    "static/js/2.bac0cd2b.chunk.js.LICENSE.txt": "/ngager-pdfwriter/static/js/2.bac0cd2b.chunk.js.LICENSE.txt"
+    "static/js/2.4c376939.chunk.js.LICENSE.txt": "/ngager-pdfwriter/static/js/2.4c376939.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7a9cf642.js",
-    "static/js/2.bac0cd2b.chunk.js",
+    "static/js/2.4c376939.chunk.js",
     "static/css/main.a2b7b0b6.chunk.css",
-    "static/js/main.1be16d3d.chunk.js"
+    "static/js/main.1ff286fb.chunk.js"
   ]
 }
