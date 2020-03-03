@@ -1,4 +1,5 @@
 /* eslint-disabled: 1 */
+/* eslint no-param-reassign: 0 */
 /* eslint class-methods-use-this: 0 */
 /* eslint new-parens: 0 */
 /* eslint semi: ["error", "always"] */
@@ -6,6 +7,62 @@
 // import _isNumber from 'lodash/isNumber';
 import _replace from 'lodash/replace';
 import _split from 'lodash/split';
+
+function rgb2hex(str) {
+  return '#' + str.split(',').map(s => (s.replace(/\D/g, '') | 0).toString(16)).map(s => s.length < 2 ? '0' + s : s).join('');
+}
+
+function findBoldTag(str, i) {
+  const open = str.indexOf('<b>', i);
+  if (open >= 0) {
+    const normalText = str.substr(i, open - i);
+    let boldText;
+    i = open + 3;
+    const close = str.indexOf('</b>', i);
+    if (close > i) {
+      boldText = str.substr(i, close - i);
+      i = close + 3;
+    } else {
+      boldText = str.substr(i);
+      i = str.length;
+    }
+    return { i, normalText, boldText };
+  }
+  return null;
+}
+
+function findSpanTag(str, i) {
+  // console.log('findSpanTag', str);
+  const open = str.indexOf('<span', i);
+  if (open >= 0) {
+    const normalText = str.substr(i, open - i);
+    const span = {
+      text: '',
+      font: 'n'
+    };
+    const close = str.indexOf('</span>', i);
+    if (close > i) {
+      const spanHTML = str.substr(i, close + 6 - i);
+      i = close + 6;
+      const div = document.createElement('div');
+      div.innerHTML = spanHTML;
+      if (div.firstChild && div.firstChild.style && div.firstChild.style !== undefined) {
+        if (div.firstChild.style.color !== undefined) {
+          span.color = rgb2hex(div.firstChild.style.color);
+        }
+        if (div.firstChild.style.fontWeight === 'bold') {
+          span.font = 'b';
+        }
+      }
+      span.text = div.firstChild.innerText;
+    } else {
+      span.text = str.substr(i);
+      i = str.length;
+    }
+    return { i, normalText, span };
+  }
+  return null;
+}
 
 class Pdf {
   constructor(options = null) {
@@ -67,7 +124,7 @@ class Pdf {
         return;
       }
       // console.log('str', str);
-      if (str.includes('<b>')) {
+      if (str.includes('<b>') || str.includes('<span')) {
         // console.log(str);
         const array = [];
         let maxCount = 0;
@@ -77,35 +134,53 @@ class Pdf {
             break;
           }
           maxCount += 1;
-          const open = str.indexOf('<b>', i);
-          if (open >= 0) {
-            const normalText = str.substr(i, open - i);
-            let boldText;
-            i = open + 3;
-            const close = str.indexOf('</b>', i);
-            if (close > i) {
-              boldText = str.substr(i, close - i);
-              i = close + 3;
-            } else {
-              boldText = str.substr(i);
-              i = str.length;
+          const findBoldTagResp = findBoldTag(str, i);
+          if (findBoldTagResp) {
+            const { normalText, boldText } = findBoldTagResp;
+            i = findBoldTagResp.i;
+            if (normalText) {
+              array.push({
+                text: normalText,
+                type: 'n'
+              });
             }
-            array.push({
-              text: normalText,
-              type: 'n'
-            });
-            array.push({
-              text: boldText,
-              type: 'b'
-            });
-          } else {
-            const normalText = str.substr(i);
-            i = str.length;
-            array.push({
-              text: normalText,
-              type: 'n'
-            });
+            if (boldText) {
+              array.push({
+                text: boldText,
+                type: 'b'
+              });
+            }
+            continue;
           }
+
+          const findSpanTagResp = findSpanTag(str, i);
+          if (findSpanTagResp) {
+            // console.log('findSpanTagResp', findSpanTagResp);
+            i = findSpanTagResp.i;
+            const { normalText, span } = findSpanTagResp;
+            if (normalText) {
+              array.push({
+                text: normalText,
+                type: 'n'
+              });
+            }
+            const { text, font, color } = span;
+            if (text) {
+              array.push({
+                text: text,
+                type: font,
+                color: color
+              });
+            }
+            continue;
+          }
+
+          const normalText = str.substr(i);
+          i = str.length;
+          array.push({
+            text: normalText,
+            type: 'n'
+          });
           // break;
         }
         this.data.push({

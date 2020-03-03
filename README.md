@@ -19,23 +19,30 @@ import Pdf from 'ngager-pdfwriter'
 
 const html2canvas = require('html2canvas');
 
+const text = '3. <b>Consultation Services</b>: The Recruitment team provides <b>consultation on </b>new and replacement positions - hiring  –  process, salary<b> range, </b> hehehe<br><br>   <b>availability, possible</b> challenges/risks and strategies <br>to close the roles.';
+
+const text2 = 'The man who knows his worth respects his fellow man because he respects himself first. He does not boast; is not self-seeking; nor does he force his personal opinion on others.';
+
+const text3 = '<span style="color: #FF6347;font-weight: bold;">#</span> What website or app has completely changed your life for better or for worse?'
+
+
 class Example extends Component {
   async onClick() {
-    // console.log('onClick', this.props);
-    const pdf = new Pdf();
+    const pdf = new Pdf({ defaultFontSize: 11, defaultColor: '#222222' });
     try {
       pdf.addText(text, { fontSize: 12, color: '#BBBBBB' });
       pdf.addText(' ');
-      // Add fontawesome icon
       pdf.addIcon('', { color: '#BBBBBB' });
       pdf.moveUp();
       pdf.addText(text2, null, { indent: 16 });
+      pdf.addText(' ');
+      pdf.addText(text3);
       pdf.addText(' ');
       const canvas = await html2canvas(this.chart);
       const dataUrl = canvas.toDataURL();
       pdf.addImage(dataUrl);
 
-      // Add new page
+      // add Page
       pdf.addPage();
     } catch (e) {
       console.log('ERROR', e);

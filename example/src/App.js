@@ -52,14 +52,16 @@ const layout = {
   )
 };
 
-const text = '3. <b>Consultation Services</b>: The Recruitment team provides <b>consultation on </b>new and replacement positions - hiring  –  process, salary<b> range, </b> hehehe<br><br>   <b>availability, possible</b> challenges/risks and strategies <br>to close the roles.<br>Hahaha';
+const text = '3. <b>Consultation Services</b>: The Recruitment team provides <b>consultation on </b>new and replacement positions - hiring  –  process, salary<b> range, </b> hehehe<br><br>   <b>availability, possible</b> challenges/risks and strategies <br>to close the roles.';
 
 const text2 = 'The man who knows his worth respects his fellow man because he respects himself first. He does not boast; is not self-seeking; nor does he force his personal opinion on others.';
+
+const text3 = '<span style="color: #FF6347;font-weight: bold;">#</span> What website or app has completely changed your life for better or for worse?'
 
 export default class App extends Component {
   async onClick() {
     // console.log('onClick', this.props);
-    const pdf = new Pdf();
+    const pdf = new Pdf({ defaultFontSize: 11, defaultColor: '#222222' });
     // pdf.setHost('http://localhost')
     try {
       pdf.addText(text, { fontSize: 12, color: '#BBBBBB' });
@@ -67,6 +69,8 @@ export default class App extends Component {
       pdf.addIcon('', { color: '#BBBBBB' });
       pdf.moveUp();
       pdf.addText(text2, null, { indent: 16 });
+      pdf.addText(' ');
+      pdf.addText(text3);
       pdf.addText(' ');
       const canvas = await html2canvas(this.chart);
       const dataUrl = canvas.toDataURL();
@@ -88,6 +92,7 @@ export default class App extends Component {
           <i style={{ paddingRight: 6, color: '#BBBBBB' }} className='fas fa-quote-left'></i>
            {text2}
         </p>
+        <p dangerouslySetInnerHTML={{ __html: text3 }} />
         <div
           ref={el => {
               this.chart = el || this.chart;
@@ -96,7 +101,7 @@ export default class App extends Component {
         >
           <Bar
             data={data}
-            height={400}
+            height={300}
             options={{
               cornerRadius: 0,
               layout,
