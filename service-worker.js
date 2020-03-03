@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ngager-pdfwriter/precache-manifest.c40a0a94bed45fa2aca0912e62ca5b3f.js"
+  "/ngager-pdfwriter/precache-manifest.a90026b746d995eb773e5c46d4261986.js"
 );
 
 self.addEventListener('message', (event) => {
