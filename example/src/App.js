@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2'
 
 import Pdf from 'ngager-pdfwriter'
 
-const domtoimage = require('dom-to-image');
+const html2canvas = require('html2canvas');
 
 function randomScalingFactor() {
   return Math.floor(Math.random() * 100);
@@ -62,7 +62,9 @@ export default class App extends Component {
     try {
       pdf.addText(text);
       pdf.addText(' ');
-      const dataUrl = await domtoimage.toPng(this.chart);
+      const canvas = await html2canvas(this.chart);
+      const dataUrl = canvas.toDataURL();
+      // const dataUrl = await domtoimage.toPng(this.chart);
       pdf.addImage(dataUrl);
     } catch (e) {
       console.log('ERROR', e);

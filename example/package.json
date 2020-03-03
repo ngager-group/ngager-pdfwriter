@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.8.0",
-    "dom-to-image": "^2.6.0",
+    "html2canvas": "^1.0.0-rc.5",
     "ngager-pdfwriter": "file:..",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
