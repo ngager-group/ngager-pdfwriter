@@ -61,7 +61,7 @@ export default class App extends Component {
     // console.log('onClick', this.props);
     const pdf = new Pdf();
     pdf.setFilename('test.pdf');
-    pdf.setHost('http://localhost')
+    // pdf.setHost('http://localhost')
     try {
       pdf.addText(text, { fontSize: 12, color: '#BBBBBB' });
       pdf.addText(' ');
