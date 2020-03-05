@@ -12,56 +12,56 @@ function rgb2hex(str) {
   return '#' + str.split(',').map(s => (s.replace(/\D/g, '') | 0).toString(16)).map(s => s.length < 2 ? '0' + s : s).join('');
 }
 
-function findBoldTag(str, i) {
-  const open = str.indexOf('<b>', i);
-  if (open >= 0) {
-    const normalText = str.substr(i, open - i);
-    let boldText;
-    i = open + 3;
-    const close = str.indexOf('</b>', i);
-    if (close > i) {
-      boldText = str.substr(i, close - i);
-      i = close + 3;
-    } else {
-      boldText = str.substr(i);
-      i = str.length;
-    }
-    return { i, normalText, boldText };
+function findBoldTag(str, open) {
+  let i = 0;
+  const normalText = str.substr(i, open - i);
+  let boldText;
+  i = open + 3;
+  const close = str.indexOf('</b>', i);
+  if (close > i) {
+    boldText = str.substr(i, close - i);
+    i = close + 3;
+  } else {
+    boldText = str.substr(i);
+    i = str.length;
   }
-  return null;
+  if (i < 0) {
+    i = 0;
+  }
+  return { i, normalText, boldText };
 }
 
-function findSpanTag(str, i) {
+function findSpanTag(str, open) {
   // console.log('findSpanTag', str);
-  const open = str.indexOf('<span', i);
-  if (open >= 0) {
-    const normalText = str.substr(i, open - i);
-    const span = {
-      text: '',
-      font: 'n'
-    };
-    const close = str.indexOf('</span>', i);
-    if (close > i) {
-      const spanHTML = str.substr(i, close + 6 - i);
-      i = close + 6;
-      const div = document.createElement('div');
-      div.innerHTML = spanHTML;
-      if (div.firstChild && div.firstChild.style && div.firstChild.style !== undefined) {
-        if (div.firstChild.style.color !== undefined) {
-          span.color = rgb2hex(div.firstChild.style.color);
-        }
-        if (div.firstChild.style.fontWeight === 'bold') {
-          span.font = 'b';
-        }
+  let i = 0;
+  const normalText = str.substr(i, open - i);
+  const span = {
+    text: '',
+    font: 'n'
+  };
+  const close = str.indexOf('</span>', open);
+  if (close > open) {
+    const spanHTML = str.substr(open, close + 6 - i);
+    i = close + 6;
+    const div = document.createElement('div');
+    div.innerHTML = spanHTML;
+    if (div.firstChild && div.firstChild.style && div.firstChild.style !== undefined) {
+      if (div.firstChild.style.color !== undefined) {
+        span.color = rgb2hex(div.firstChild.style.color);
       }
-      span.text = div.firstChild.innerText;
-    } else {
-      span.text = str.substr(i);
-      i = str.length;
+      if (div.firstChild.style.fontWeight === 'bold') {
+        span.font = 'b';
+      }
     }
-    return { i, normalText, span };
+    span.text = div.firstChild.innerText;
+  } else {
+    span.text = str.substr(i);
+    i = str.length;
   }
-  return null;
+  if (i < 0) {
+    i = 0;
+  }
+  return { i, normalText, span };
 }
 
 class Pdf {
@@ -115,29 +115,29 @@ class Pdf {
 
   addText(text, style = null, options = null) {
     const newContent = _replace(text, '<br/>', '<br>');
-    _split(newContent, '<br>').forEach(str => {
-      if (str.length === 0) {
+    _split(newContent, '<br>').forEach(text => {
+      if (text.length === 0) {
         this.data.push({
           type: 'text',
           item: { text: ' ', style, options }
         });
         return;
       }
-      // console.log('str', str);
-      if (str.includes('<b>') || str.includes('<span')) {
-        // console.log(str);
-        const array = [];
-        let maxCount = 0;
-        for (let i = 0; i < str.length; i++) {
-          // console.log('maxCount', maxCount);
-          if (maxCount > 30) {
-            break;
-          }
-          maxCount += 1;
-          const findBoldTagResp = findBoldTag(str, i);
-          if (findBoldTagResp) {
+      const array = [];
+      let max = 0;
+      for (let i = 0; i < text.length; i++) {
+        if (max > 30) {
+          break;
+        }
+        max += 1;
+        const str = text.substr(i);
+        const regex = /(<span|<b>)/g;
+        const matches = regex.exec(str);
+        if (matches) {
+          if (matches[0].includes('<b>')) {
+            const findBoldTagResp = findBoldTag(str, matches.index);
             const { normalText, boldText } = findBoldTagResp;
-            i = findBoldTagResp.i;
+            i += findBoldTagResp.i;
             if (normalText) {
               array.push({
                 text: normalText,
@@ -150,21 +150,17 @@ class Pdf {
                 type: 'b'
               });
             }
-            continue;
-          }
-
-          const findSpanTagResp = findSpanTag(str, i);
-          if (findSpanTagResp) {
-            // console.log('findSpanTagResp', findSpanTagResp);
-            i = findSpanTagResp.i;
+          } else if (matches[0].includes('<span')) {
+            const findSpanTagResp = findSpanTag(str, matches.index);
+            i += findSpanTagResp.i;
             const { normalText, span } = findSpanTagResp;
+            const { text, font, color } = span;
             if (normalText) {
               array.push({
                 text: normalText,
                 type: 'n'
               });
             }
-            const { text, font, color } = span;
             if (text) {
               array.push({
                 text: text,
@@ -172,25 +168,25 @@ class Pdf {
                 color: color
               });
             }
-            continue;
           }
-
-          const normalText = str.substr(i);
-          i = str.length;
+        } else {
+          i = text.length;
           array.push({
-            text: normalText,
+            text: str,
             type: 'n'
           });
-          // break;
         }
+      }
+
+      if (array.length === 1) {
         this.data.push({
-          type: 'formatted-text',
-          item: { text: array, style, options }
+          type: 'text',
+          item: { text: array[0], style, options }
         });
       } else {
         this.data.push({
-          type: 'text',
-          item: { text: str, style, options }
+          type: 'formatted-text',
+          item: { text: array, style, options }
         });
       }
     });
