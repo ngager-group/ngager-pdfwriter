@@ -114,7 +114,8 @@ class Pdf {
   }
 
   addText(text, style = null, options = null) {
-    const newContent = _replace(text, '<br/>', '<br>');
+    let newContent = _replace(text, '<br/>', '<br>');
+    newContent = _replace(text, '<br></b>', '</b><br>');
     _split(newContent, '<br>').forEach(text => {
       if (text.length === 0) {
         this.data.push({
@@ -181,7 +182,7 @@ class Pdf {
       if (array.length === 1) {
         this.data.push({
           type: 'text',
-          item: { text: array[0], style, options }
+          item: { text: array[0].text, style, options }
         });
       } else {
         this.data.push({
