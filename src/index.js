@@ -28,7 +28,7 @@ function findBoldTag(str, open) {
   if (i < 0) {
     i = 0;
   }
-  return { i, normalText, boldText };
+  return { n: i, normalText, boldText };
 }
 
 function findSpanTag(str, open) {
@@ -136,9 +136,8 @@ class Pdf {
         const matches = regex.exec(str);
         if (matches) {
           if (matches[0].includes('<b>')) {
-            const findBoldTagResp = findBoldTag(str, matches.index);
-            const { normalText, boldText } = findBoldTagResp;
-            i += findBoldTagResp.i;
+            const { normalText, boldText, n } = findBoldTag(str, matches.index);
+            i += n;
             if (normalText) {
               array.push({
                 text: normalText,
@@ -178,8 +177,7 @@ class Pdf {
           });
         }
       }
-
-      if (array.length === 1) {
+      if (array.length === 1 && array[0].type === 'n') {
         this.data.push({
           type: 'text',
           item: { text: array[0].text, style, options }

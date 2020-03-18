@@ -2,6 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
+  devtool: 'cheap-module-eval-source-map',
   resolve: {
 		alias: {
 			fs: 'pdfkit/js/virtual-fs.js'
@@ -22,7 +24,7 @@ module.exports = {
       template: path.resolve(__dirname, 'src/index.html')
     })
   ],
-  devtool: 'sourcemap',
+  // devtool: 'sourcemap',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
